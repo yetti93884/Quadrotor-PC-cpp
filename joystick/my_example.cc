@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
 		
 		send_via_port((char *)":", "char", 1);     
 		
-		sleep(1);
+		usleep(20000);
 	}
 
 
