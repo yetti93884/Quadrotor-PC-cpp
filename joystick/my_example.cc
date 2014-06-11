@@ -82,6 +82,8 @@ int main(int argc, char *argv[]) {
 		Roll = serialFloatPrint(jp[0].x);
 		cout << "yolo: " << Roll << endl;
 		
+		send_via_port((char *)"$", "char", 1);
+
 		//send_via_port((char *)"Roll: ", "char", 6);  
 		send_via_port(&Roll, "string", 0);  
 		send_via_port((char *)",", "char", 1);  
@@ -102,16 +104,12 @@ int main(int argc, char *argv[]) {
 		
 		//send_via_port((char *)"Thrust: ", "char", 8);  
 		//send_via_port(&(jp[1].x), "float", 0);  
+
 		send_via_port(&Thrust, "string", 0);
+		send_via_port((char *)":", "char", 1);
 		//send_via_port((char *)"\n\n", "char", 2); 
 		
-		send_via_port((char *)":", "char", 1);     
-		
-		usleep(20000);
+		usleep(30000);
 	}
-
-
-		
-
 	return 0;
 }
