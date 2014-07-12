@@ -19,23 +19,26 @@ string temp ("");
 
 string serialFloatPrint(float f) {
   string s ("");
-  byte * b = (byte *) &f;
-  //printf("%u %u %u %u\n", b[0], b[1], b[2], b[3]);
-  int i;
-  for(i=0; i<4; i++) {
-    
-    byte b1 = (b[i] >> 4) & 0x0f;
-    byte b2 = (b[i] & 0x0f);
-    
-    char c1 = (b1 < 10) ? ('0' + b1) : 'A' + b1 - 10;
-    char c2 = (b2 < 10) ? ('0' + b2) : 'A' + b2 - 10;
-    
-    //printf("%c", c1);
-    //printf("%c", c2);
-    //printf("\n");
-    s += c1;
-    s += c2;
+  long num = f*100;
+  int val;
+
+  if(num>=0)
+  	s += '+';
+  else {
+  	s += '-';
+  	num = -1*num;
   }
+
+  val = num/100;
+  num = num%100;
+  s += val + '0';
+
+  val = num/10;
+  num = num%10;
+
+  s += val + '0';
+  s += num + '0';
+
   //cout << s << endl;
   return s;
 }
@@ -163,7 +166,7 @@ int main(int argc, char *argv[]) {
 			string Thrust;
 			float m = (-jp[1].x+1)/2*1.1;
 			Thrust = serialFloatPrint(m);
-
+ 	
 			string message = "$" + Yaw + "," + Pitch + "," + Roll + "," + Thrust + ":";
 
 			send_via_port(&message,"string",0);
